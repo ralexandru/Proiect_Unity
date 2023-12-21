@@ -19,18 +19,23 @@ public class Movement : MonoBehaviour
     private Transform playerRotationTransform;
     [SerializeField]
     private Transform cameraTransform;
+    public GameObject enterPin;
+
     private Finger MoveFinger;
     private Finger RotateFinger;
+
     private Vector2 MoveAmount = Vector2.zero;
     private Vector2 RotateAmount = Vector2.zero;
-    public GameObject enterPin;
+
+    private float gravity = 9.8f;
+    private float verticalVelocity = 0f;
+
     private void OnEnable()
     {
         EnhancedTouchSupport.Enable();
         ETouch.Touch.onFingerDown += Touch_onFingerDown;
         ETouch.Touch.onFingerUp += Touch_onFingerUp;
         ETouch.Touch.onFingerMove += Touch_onFingerMove;
-        
     }
 
     private void OnDisable()
@@ -39,6 +44,35 @@ public class Movement : MonoBehaviour
         ETouch.Touch.onFingerUp -= Touch_onFingerUp;
         ETouch.Touch.onFingerMove -= Touch_onFingerMove;
         EnhancedTouchSupport.Disable();
+    }
+
+    private void Update()
+    {
+        HandleGravity();
+        HandleMovement();
+    }
+
+    private void HandleGravity()
+    {
+        if (!Player.isGrounded)
+        {
+            // Apply gravity manually
+            verticalVelocity -= gravity * Time.deltaTime;
+        }
+        else
+        {
+            // Reset vertical velocity when grounded
+            verticalVelocity = -gravity * Time.deltaTime;
+        }
+    }
+
+    private void HandleMovement()
+    {
+        float horizontalInput = MoveAmount.x * 1.5f;
+        float verticalInput = MoveAmount.y * 1.5f;
+
+        Vector3 movement = playerRotationTransform.TransformDirection(new Vector3(horizontalInput, verticalVelocity, verticalInput));
+        Player.Move(movement * Time.deltaTime);
     }
 
     private void Touch_onFingerMove(Finger MovedFinger)
@@ -74,7 +108,7 @@ public class Movement : MonoBehaviour
             MoveJoystick.Knob.anchoredPosition = knobPosition;
             // Apply movement to the player
             // Assuming your movement is along the x-z plane
-            Vector3 movement = playerRotationTransform.TransformDirection(new Vector3(MoveAmount.x*1.5f, 0, MoveAmount.y*1.5f));
+            Vector3 movement = playerRotationTransform.TransformDirection(new Vector3(MoveAmount.x * 1.5f, 0, MoveAmount.y * 1.5f));
             Player.Move(movement * Time.deltaTime);
         }
     }
@@ -104,9 +138,6 @@ public class Movement : MonoBehaviour
         float currentVerticalRotation = cameraTransform.localEulerAngles.x - RotateAmount.y * rotationSpeed;
         float clampedVerticalRotation = Mathf.Clamp(currentVerticalRotation, -90, 360);
         cameraTransform.localEulerAngles = new Vector3(clampedVerticalRotation, 0, 0);
-
-
-
     }
 
     private void Touch_onFingerUp(Finger LostFinger)

@@ -19,6 +19,7 @@ public class checkDoorDistance : MonoBehaviour
         // Initially, hide the button
         HideButton(buttonCanvasGroup);
         HideButton(portalCanvasGroup);
+
     }
 
     private void Update()
