@@ -57,12 +57,10 @@ public class Movement : MonoBehaviour
     {
         if (!Player.isGrounded)
         {
-            // Apply gravity manually
             verticalVelocity -= gravity * Time.deltaTime;
         }
         else
         {
-            // Reset vertical velocity when grounded
             verticalVelocity = -gravity * Time.deltaTime;
         }
     }
@@ -78,11 +76,10 @@ public class Movement : MonoBehaviour
 
     private void HandleRotation()
     {
-        float rotationSpeed = 0.5f; // Adjust the rotation speed as needed
+        float rotationSpeed = 0.5f;
         Vector3 rotation = new Vector3(0, RotateAmount.x * rotationSpeed, 0);
         playerRotationTransform.Rotate(rotation);
 
-        // Apply vertical rotation to the camera
         float currentVerticalRotation = cameraTransform.localEulerAngles.x - RotateAmount.y * rotationSpeed;
         float clampedVerticalRotation = Mathf.Clamp(currentVerticalRotation, -90, 360);
         cameraTransform.localEulerAngles = new Vector3(clampedVerticalRotation, 0, 0);

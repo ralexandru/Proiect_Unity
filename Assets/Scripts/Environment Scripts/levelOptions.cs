@@ -41,13 +41,10 @@ public class levelOptions : MonoBehaviour
     {
         if (portalPositions.Count > 0)
         {
-            // Generate a random index
+            //Genereaza un index random
             int randomIndex = Random.Range(0, portalPositions.Count);
-
-            // Retrieve the PortalPositions object at the random index
+            // Foloseste indexul generat random pentru a amplasa portalul intr-una din pozitiile din lista de portalPositions
             PortalPositions randomPosition = portalPositions[randomIndex];
-
-            // Use the retrieved position to spawn the portal
             portal.transform.position = new Vector3(randomPosition.positionX, randomPosition.positionY, randomPosition.positionZ);
             //Instantiate(portal, new Vector3(randomPosition.positionX, randomPosition.positionY, randomPosition.positionZ), Quaternion.identity);
         }
@@ -79,7 +76,7 @@ public class levelOptions : MonoBehaviour
     }
     void UpdateCountdownText()
     {
-        // Format the countdown time as mm:ss
+        // Formateaza numaratoarea inversa ca mm:ss
         int minutes = Mathf.FloorToInt(countdownTime / 60);
         int seconds = Mathf.FloorToInt(countdownTime % 60);
 

@@ -89,28 +89,28 @@ public class levelOptions2 : MonoBehaviour
             return;
         }
 
-        // Calculate the central point within the terrain
+        // Calculeaza un punct central in cadrul terenului/hartii
         Vector3 centralPoint = terrain.transform.position + new Vector3(terrain.terrainData.size.x / 2f, 0f, terrain.terrainData.size.z / 2f);
 
         for (int i = 0; i < numberOfCoins; i++)
         {
-            // Generate a random position around the central point within an area
+            // Genereaza un punct random bazat pe punctul central al hartii
             float randomX = Random.Range(centralPoint.x - spawnRadius, centralPoint.x + spawnRadius);
             float randomZ = Random.Range(centralPoint.z - spawnRadius, centralPoint.z + spawnRadius);
 
-            // Check if the position is outside water areas
+            // Verifica daca punctul generat se afla pe apa
             if (IsPositionOutsideWaterAreas(new Vector3(randomX, terrain.transform.position.y, randomZ)))
             {
-                // Perform a raycast to find the terrain height from above
+                // Folosesc raycast pentru a determina distanta pana la pamant
                 Ray ray = new Ray(new Vector3(randomX, terrain.transform.position.y + terrain.terrainData.size.y + 10f, randomZ), Vector3.down);
                 RaycastHit hit;
 
                 if (terrainCollider.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    // Use the hit point directly
+                   
                     Vector3 randomPosition = new Vector3(randomX, hit.point.y+2f, randomZ);
 
-                    // Instantiate the coin at the random position
+                    // Instantiez moneda intr-o pozitie aleatoare
                     GameObject coin = Instantiate(coinPrefab, randomPosition, Quaternion.identity);
                 }
                 else
@@ -133,10 +133,10 @@ public class levelOptions2 : MonoBehaviour
 
             if (waterCollider != null && waterCollider.bounds.Contains(position))
             {
-                return false; // Position is inside a water area
+                return false; // Pozitia generata este in apa
             }
         }
 
-        return true; // Position is outside all water areas
+        return true; // Pozitia generata nu este in apa
     }
 }

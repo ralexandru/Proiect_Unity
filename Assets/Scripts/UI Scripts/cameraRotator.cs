@@ -9,7 +9,7 @@ public class cameraRotator : MonoBehaviour
 
     void Update()
     {
-        // Rotate the camera left and right continuously
+        // Roteste camera de la stanga la dreapta si inapoi continuu
         float rotation = Mathf.Sin(Time.time * rotationSpeed) * rotationAngle;
         transform.rotation = Quaternion.Euler(0f, rotation+180f, 0f);
     }

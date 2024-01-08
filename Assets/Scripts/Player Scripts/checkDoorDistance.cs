@@ -13,7 +13,7 @@ public class checkDoorDistance : MonoBehaviour
     public GameObject portalCanvasGroup;
     private void Start()
     {
-        // Initially, hide the buttons
+        // Initial butoanele sunt ascunse
         HideButton(buttonCanvasGroup);
         HideButton(portalCanvasGroup);
 
@@ -21,11 +21,11 @@ public class checkDoorDistance : MonoBehaviour
 
     private void Update()
     {
-        // Check the distance between the player and the door
+        // Verifica distanta de la jucator la usa
         float distanceToDoor = Vector3.Distance(player.position, door.position);
-        // Check the distance between the player and the portal
+        // Verifica distanta de la portal la jucator
         float distanceToPortal = Vector3.Distance(player.position, portal.position);
-        // Show or hide the button based on the distance
+        // Afiseaza sau ascunde butoanele in functie de distanta
         if (distanceToDoor <= activationDistance)
         {
             ShowButton(buttonCanvasGroup);

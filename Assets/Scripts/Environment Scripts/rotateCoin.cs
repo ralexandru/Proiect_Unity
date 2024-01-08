@@ -5,7 +5,7 @@ using UnityEngine;
 public class rotateCoin : MonoBehaviour
 {
     public SpiderController spiderController;
-    // Rotation speed in degrees per second
+    // Viteza de rotatie a monedei
     public float rotationSpeed = 30f;
 
     void Update()
@@ -15,15 +15,15 @@ public class rotateCoin : MonoBehaviour
 
     void RotateObject()
     {
-        // Rotate the object around its up axis (Y-axis) based on the rotationSpeed
+        // Roteste moneda in functie de rotationSpeed
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
     void OnTriggerEnter(Collider other)
     {
-        // Check if the colliding object is the player
+        // Verifica daca exista o coliziune intre jucator si moneda
         if (other.CompareTag("Player"))
         {
-            // If player collided with the coin, collect coin
+            // Daca playerul a atins moneda, atunci aceasta va fi colectata prin apelarea functiei de mai jos
             CollectCoin();
         }
     }

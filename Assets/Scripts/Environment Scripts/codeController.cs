@@ -15,7 +15,6 @@ public class codeController : MonoBehaviour
     public GameObject doorLeft;
     public GameObject doorRight;
     public GameObject doorSignal;
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -53,7 +52,7 @@ public class codeController : MonoBehaviour
         //initialRightDoorPosition = rightDoor.position;
         //// Calculate the new positions based on the openSpeed
         //float step = openSpeed * Time.deltaTime;
-        //Vector3 targetLeftPosition = initialLeftDoorPosition - Vector3.right * openDistance; // Adjust the target position as needed
+        //Vector3 targetLeftPosition = initialLeftDoorPosition - Vector3.right * openDistance; 
         //Vector3 targetRightPosition = initialRightDoorPosition + Vector3.right * openDistance;
 
         //// Move the doors towards the target positions to create a smooth movement
@@ -64,7 +63,7 @@ public class codeController : MonoBehaviour
         //// Check if the doors have fully opened
         //if (Vector3.Distance(leftDoor.position, targetLeftPosition) < 0.1f)
         //{
-        //    doorsOpen = false; // Set doorsOpen to false when fully opened
+        //    doorsOpen = false; 
         //}
         
     }
@@ -91,8 +90,6 @@ public class codeController : MonoBehaviour
         codeEnter.SetActive(true);
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         

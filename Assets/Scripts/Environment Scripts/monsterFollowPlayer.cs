@@ -3,9 +3,9 @@ using UnityEngine.Analytics;
 
 public class SpiderController : MonoBehaviour
 {
-    public Transform player;  // Reference to the player GameObject
-    public float moveSpeed = 3f;  // Adjust the speed as needed
-    public float gravity = 9.8f;  // Adjust the gravity strength as needed
+    public Transform player;  // Referinta pentru player
+    public float moveSpeed = 3f;  // Viteza de miscare a paianjenului
+    public float gravity = 9.8f;  // Gravitatia paianjenului
     private CharacterController characterController;
     public GameObject gameOverUI;
     private float verticalVelocity = 0f;
@@ -19,27 +19,27 @@ public class SpiderController : MonoBehaviour
     {
         if (player != null)
         {
-            // Direction from the spider to the player
+            // Directia in care trebuie sa mearga paianjenul pentru a ajunge la jucator
             Vector3 directionToPlayer = player.position - transform.position;
-            directionToPlayer.y = 0f;  // Ignore vertical movement
+            directionToPlayer.y = 0f;  // Ignora miscarea pe verticala
 
-            // Rotate towards the player
+            // Roteste paianjenul in directia jucatorului
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(directionToPlayer), 0.1f);
 
-            // Check if the spider is grounded
+            // Verifica daca paianjenul se afla pe pamant
             if (characterController.isGrounded)
             {
-                verticalVelocity = -gravity * Time.deltaTime;  // Reset vertical velocity when grounded
+                verticalVelocity = -gravity * Time.deltaTime;  // Reseteaza miscarea pe verticala daca paianjenul se afla pe pamant
             }
 
           //  Debug.Log($"Is Grounded: {characterController.isGrounded}");
 
-            // Apply gravity
+            // Aplica gravitate
             ApplyGravity();
 
-            // Move towards the player
+            // Misca paianjenul in directia jucatorului
             Vector3 moveDirection = directionToPlayer.normalized;
-            moveDirection.y = player.position.y;  // Include vertical movement
+            moveDirection.y = player.position.y;  // Include miscarea pe verticala
             characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
         }
     }
@@ -48,16 +48,16 @@ public class SpiderController : MonoBehaviour
     {
         if (!characterController.isGrounded)
         {
-            // Apply gravity manually
+            // Aplica gravitatie manual
             verticalVelocity -= gravity * Time.deltaTime;
         }
     }
     void OnTriggerEnter(Collider other)
     {
-        // Check if the colliding object is the player
+        // Verifica daca exista o coliziune intre paianjen si jucator
         if (other.CompareTag("Player"))
         {
-            // If spider collides with player, then it's game over
+            // Daca paianjenul atinge jucatorul, atunci este Game Over
             GameOver();
         }
     }
@@ -70,7 +70,7 @@ public class SpiderController : MonoBehaviour
 
     public void IncreaseSpiderSpeed(float speedMultiplier)
     {
-        // Increase the spider's speed by the specified multiplier(when collecting a coin)
+        // Viteza paianjenului se mareste cand jucatorul colecteaza monede
         moveSpeed *= speedMultiplier;
         Debug.Log($"Spider speed increased to: {moveSpeed}");
     }
